@@ -1,0 +1,33 @@
+{
+    "name": "JAVAMONGO1",
+    "image": "mcr.microsoft.com/vscode/devcontainers/java:0-11",
+    "extensions": [
+        "vscjava.vscode-java-pack",
+        "mongodb.mongodb-vscode",
+        "redhat.vscode-yaml",
+        "ms-azuretools.vscode-docker"
+    ],
+    "settings": {
+        "java.home": "/usr/lib/jvm/java-11-openjdk-amd64",
+        "java.debug.settings.renderDebugOutput": "false",
+        "java.debug.settings.useStepFilters": "true",
+        "java.debug.settings.trustProject": "true",
+        "java.debug.settings.exceptionBreakpointFilters": [
+            {
+                "filter": "java.*",
+                "label": "Java Exceptions",
+                "default": true
+            }
+        ]
+    },
+    "forwardPorts": [
+        8080
+    ],
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/src/main/java",
+    "mounts": [
+        "source=app-data,target=/data/db,type=volume"
+    ],
+    "remoteUser": "vscode"
+}
