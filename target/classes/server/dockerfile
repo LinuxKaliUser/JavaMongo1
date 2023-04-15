@@ -1,9 +1,0 @@
-FROM openjdk:11
-
-EXPOSE 0
-
-WORKDIR /src/main/java/server
-
-COPY target/MongoServer.jar .
-
-CMD ["java", "-jar", "CalculationHomeCost.jar"]

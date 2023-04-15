@@ -1,9 +1,13 @@
-FROM openjdk:11
+# syntax=docker/dockerfile:1
 
-EXPOSE 0
+FROM eclipse-temurin:17-jdk-jammy
 
-WORKDIR /src/main/java
+WORKDIR /app
 
-COPY target/CalculationHomeCost.jar .
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+RUN ./mvnw dependency:resolve
 
-CMD ["java", "-jar", "CalculationHomeCost.jar"]
+COPY src ./src
+
+CMD ["./mvnw", "spring-boot:run"]

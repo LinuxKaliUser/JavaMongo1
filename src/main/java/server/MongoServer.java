@@ -6,9 +6,13 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import org.bson.Document;
+
+
 import java.util.ArrayList;
 import java.util.List;
+
+import org.bson.Document;
+import org.bson.conversions.Bson;
 
 public class MongoServer implements MongoInterface {
     private static final String ZUERICH2 = "zuerich";
@@ -25,7 +29,13 @@ public class MongoServer implements MongoInterface {
 
         // Get a handle to the "myapp" database
         database = mongoClient.getDatabase("myapp");
-        if(!database.getCollection(BASEL2).equals(BASEL2)){
+        MongoCollection<Document> collection = database.getCollection(BASEL2);
+        FindIterable<Document> find = collection.find(new Document(BEZEICHNUNGEN_FUER_BASEL, BASEL2));
+        boolean existBasel= false;
+        for (Document d:find) {
+        	existBasel=d.containsValue(BASEL2);
+        }
+        if(!existBasel){
 
         //Create Collection
 
